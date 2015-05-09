@@ -3,50 +3,45 @@
 Goal1: assignment: Duel
 */
 (function(){
-  // console.log("FIGHT!!!!");
 
-  // //player Name
-  // var playerOneName = "Spiderman";
-  // var player2info[0] = "Batman";
-  //
-  // //Player Damage
-  // var player1info[1] = 20;
-  // var player2info[1] = 20;
-  //
-  // //player Health
-  // var player1info[2] = 100;
-  // var player2info[2] = 100;
 
   var round = 0;
 
-  var player1info = ["Spiderman",20,100];
-  var player2info = ["Batman",20,100];
+  // var player1info = ["Spiderman",20,100];
+  // var player2info = ["Batman",20,100];
 
+  var players = [{name:'Spiderman', damage:'20', health:'100'},{name:'Batman', damage:'20', health:'100'}];
+  document.querySelector("#kabal p").innerHTML = players[0].name+":"+players[0].health ;
+  document.querySelector("#kratos p").innerHTML = players[1].name+":"+players[1].health ;
   function fight(){
 
     console.log("Otter Fight Function");
-    alert(player1info[0]+":"+player1info[2]+" *START* "+player2info[0]+":"+player2info[2]);
+    alert(players[0].name+":"+players[0].health+" *START* "+players[1].name+":"+players[1].health);
+    // document.querySelector("kabal").innerHTML = players[0].name+":"+players[0].health ;
     for(var i=0;i<10;i++){
       // math.floor(math.random();
-      var minDamage1 = player1info[1] * .5;
-      var minDamage2 = player2info[1] * .5;
-      var f1 = Math.floor(Math.random()*(player1info[1] - minDamage1)+ minDamage1);
-      var f2 = Math.floor(Math.random()*(player2info[1] - minDamage2)+ minDamage2);
+      var minDamage1 = players[0].damage * .5;
+      var minDamage2 = players[1].damage * .5;
+      var f1 = Math.floor(Math.random()*(players[0].damage - minDamage1)+ minDamage1);
+      var f2 = Math.floor(Math.random()*(players[1].damage - minDamage2)+ minDamage2);
       // console.log(f1);
       // console.log(f2);
-      player1info[2] -=f1;
-      player2info[2] -=f2;
+      players[0].health -=f1;
+      players[1].health -=f2;
 
-      console.log(player1info[0]+":"+player1info[2]+" * * "+player2info[0]+":"+player2info[2]);
-
+      console.log(players[0].name+":"+players[0].health+" * * "+players[1].name+":"+players[1].health);
       var outcome = winnerChk();
       console.log(outcome);
 
       if (outcome === "No Winner"){
         round++;
-        alert(player1info[0]+":"+player1info[2]+" *ROUND "+round+" IS OVER* " +player2info[0]+":"+player2info[2]);
+        alert(players[0].name+":"+players[0].health+" *ROUND "+round+" IS OVER* " +players[1].name+":"+players[1].health);
+        document.querySelector("#kabal p").innerHTML = players[0].name+": "+players[0].health ;
+        document.querySelector("#kratos p").innerHTML = players[1].name+": "+players[1].health ;
+        document.querySelector("#round_number input").innerHTML = round;
       }else{
-        alert(outcome);
+        alert(outcome); //COME BACK AND DELETE
+        document.querySelector("#scores").innerHTML = outcome;
         break;
       };
     };
@@ -57,19 +52,18 @@ Goal1: assignment: Duel
     console.log("Otter Winner Check")
 
     var result ="No Winner";
-    if (player1info[2]<0 && player2info[2]<0){
+    if (players[0].health<0 && players[1].health<0){
       result = "You Both Die.";
-    }else if (player1info[2]<0){
-      result = player2info[0] + " WINS!!!";
-    }else if (player2info[2]<0){
-      result = player1info[0] + " WINS!!!";
+    }else if (players[0].health<0){
+      result = players[1].name + " WINS!!!";
+    }else if (players[1].health<0){
+      result = players[0].name + " WINS!!!";
     };
 
     return result;
   };
-
 /************* Program Starts Here **************/
 console.log("OtterLove1");
-  fight();
+fight();
 
 })();
